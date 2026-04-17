@@ -1,0 +1,30 @@
+/*
+ * OTA.c
+ *
+ * Created: 31-03-2026 11:07:08
+ * Author : VAS PC
+ */ 
+#define F_CPU 4000000UL
+
+
+#include <avr/io.h>
+#include <util/delay.h>
+
+/* PF0 = pin 37 on TQFP-64. Connect an LED + 220? to 3.3V here. */
+#define LED_PORT  PORTF
+#define LED_PIN   PIN0_bm
+
+int main(void) {
+
+	/* Configure PF0 as output */
+	LED_PORT.DIRSET = LED_PIN;
+
+	while (1) {
+		LED_PORT.OUTSET = LED_PIN;   /* LED on  */
+		_delay_ms(500);
+		LED_PORT.OUTCLR = LED_PIN;   /* LED off */
+		_delay_ms(500);
+	}
+
+	return 0;  /* never reached */
+}
